@@ -34,7 +34,7 @@ class LoginController extends GetxController {
           passwordController.text,
         );
         if (response) {
-          Get.offAllNamed(Routes.HOME);
+          getStore();
         } else {
           ScaffoldMessenger.of(
             Get.context!,
@@ -46,6 +46,24 @@ class LoginController extends GetxController {
           Get.context!,
         ).showSnackBar(SnackBar(content: Text('Login Failed')));
       }
+    }
+  }
+
+  Future<void> getStore() async {
+    try {
+      final response = await loginServices.getStore(storeNameController.text);
+      if (response.id != 0) {
+        Get.offAllNamed(Routes.MAIN);
+      } else {
+        ScaffoldMessenger.of(
+          Get.context!,
+        ).showSnackBar(SnackBar(content: Text('Failed to load store')));
+      }
+    } catch (e) {
+      print('controller error: $e');
+      ScaffoldMessenger.of(
+        Get.context!,
+      ).showSnackBar(SnackBar(content: Text('Failed to load store')));
     }
   }
 

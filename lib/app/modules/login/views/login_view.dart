@@ -81,7 +81,6 @@ class LoginView extends GetView<LoginController> {
                       ],
                     ),
                   ),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
