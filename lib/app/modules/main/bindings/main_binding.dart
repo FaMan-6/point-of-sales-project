@@ -5,6 +5,6 @@ import '../controllers/main_controller.dart';
 class MainBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put(MainController(), permanent: true);
+    Get.put(MainController());
   }
 }

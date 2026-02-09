@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:point_of_sales/app/controllers/session_controller.dart';
 import 'package:point_of_sales/app/data/services/login_services.dart';
 import 'package:point_of_sales/app/routes/app_pages.dart';
 
@@ -33,7 +34,7 @@ class LoginController extends GetxController {
           storeNameController.text,
           passwordController.text,
         );
-        if (response) {
+        if (response != 0) {
           getStore();
         } else {
           ScaffoldMessenger.of(
@@ -52,6 +53,7 @@ class LoginController extends GetxController {
   Future<void> getStore() async {
     try {
       final response = await loginServices.getStore(storeNameController.text);
+      Get.find<SessionController>().storeSession(response.id, response.name);
       if (response.id != 0) {
         Get.offAllNamed(Routes.MAIN);
       } else {
